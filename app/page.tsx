@@ -27,15 +27,21 @@ export default async function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           {books.map((book: Book) => (
-            <BookCard
-              key={book.slug}
-              slug={book.slug}
-              title={book.title}
-              author={book.author}
-              category={book.genre}
-              rating={book.rating}
-              image={book.cover_image}
-            />
+            <Link key={book.slug} href={`/books/${book.slug}`} className="group block">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-accent mb-4 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2">
+                 {/* Image removed for deployment test */}
+                 <div className="absolute inset-0 flex items-center justify-center bg-accent text-foreground/20 font-bold text-2xl uppercase tracking-tighter">
+                   {book.title[0]}
+                 </div>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-foreground/40">{book.genre}</span>
+                </div>
+                <h3 className="font-bold text-lg leading-tight text-foreground group-hover:text-foreground/60 transition-colors">{book.title}</h3>
+                <p className="text-sm text-foreground/60">{book.author}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>

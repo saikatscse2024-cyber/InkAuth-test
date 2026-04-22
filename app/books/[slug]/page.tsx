@@ -1,5 +1,4 @@
 import { getBookBySlug } from "@/lib/db";
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { Star, Clock, Book as BookIcon, ChevronRight } from "lucide-react";
@@ -26,14 +25,8 @@ export default async function BookDetailsPage({ params }: { params: Promise<{ sl
           
           {/* Left Sidebar: Book Info */}
           <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
-            <div className="relative aspect-[3/4] w-full max-w-sm mx-auto lg:mx-0 overflow-hidden rounded-3xl shadow-2xl mb-8">
-              <Image 
-                src={book.cover_image} 
-                alt={book.title} 
-                fill 
-                className="object-cover"
-                priority
-              />
+            <div className="relative aspect-[3/4] w-full max-w-sm mx-auto lg:mx-0 overflow-hidden rounded-3xl shadow-2xl mb-8 bg-accent flex items-center justify-center">
+              <span className="text-6xl font-bold text-foreground/10">{book.title[0]}</span>
             </div>
             
             <div className="space-y-6 text-center lg:text-left">
