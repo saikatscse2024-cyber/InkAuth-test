@@ -8,6 +8,6 @@ if (!url && process.env.NODE_ENV === "production") {
 }
 
 export const turso = createClient({
-  url: url || "",
+  url: url || "libsql://build-time-dummy.turso.io",
   authToken: authToken || "",
 });

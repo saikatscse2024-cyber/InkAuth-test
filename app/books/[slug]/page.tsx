@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import { Star, Clock, Book as BookIcon, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 export default async function BookDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = await getBookBySlug(slug);

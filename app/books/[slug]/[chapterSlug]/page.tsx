@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight, List } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ChapterPage({ params }: { params: Promise<{ slug: string; chapterSlug: string }> }) {
   const { slug, chapterSlug } = await params;
   const data = await getChapterBySlug(slug, chapterSlug);
