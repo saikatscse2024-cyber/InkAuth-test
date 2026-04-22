@@ -1,64 +1,13 @@
-import { turso, Book, Chapter } from "@/lib/turso";
+import { getBookBySlug } from "@/lib/db";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { Star, Clock, Book as BookIcon, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
-async function getBookData(slug: string) {
-  try {
-    const bookResult = await turso.execute({
-      sql: "SELECT * FROM books WHERE slug = ?",
-      args: [slug],
-    });
-
-    if (bookResult.rows.length === 0) {
-      // Dummy data for validation if DB is empty
-      if (slug === "the-silent-echo") {
-        return {
-          book: {
-            id: 1,
-            slug: "the-silent-echo",
-            title: "The Silent Echo",
-            author: "Elena Vance",
-            genre: "Mystery",
-            description: "A journey through the whispers of history. In the heart of an ancient library, a forgotten manuscript reveals secrets that have been buried for centuries.",
-            cover_image: "/covers/cover1.png",
-            rating: 4.8,
-            total_chapters: 12,
-            status: "completed",
-            published_at: "2024-01-15",
-            created_at: "2024-01-15",
-          } as Book,
-          chapters: [
-            { id: 1, title: "The Whispering Walls", chapter_number: 1, slug: "the-whispering-walls" },
-            { id: 2, title: "Forbidden Knowledge", chapter_number: 2, slug: "forbidden-knowledge" },
-            { id: 3, title: "The Librarian's Key", chapter_number: 3, slug: "librarians-key" },
-          ] as Partial<Chapter>[],
-        };
-      }
-      return null;
-    }
-
-    const book = bookResult.rows[0] as unknown as Book;
-    const chaptersResult = await turso.execute({
-      sql: "SELECT id, title, chapter_number, slug FROM chapters WHERE book_id = ? ORDER BY chapter_number ASC",
-      args: [book.id],
-    });
-
-    return {
-      book,
-      chapters: chaptersResult.rows as unknown as Partial<Chapter>[],
-    };
-  } catch (error) {
-    console.error("Failed to fetch book data:", error);
-    return null;
-  }
-}
-
 export default async function BookDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await getBookData(slug);
+  const data = await getBookBySlug(slug);
 
   if (!data) {
     notFound();

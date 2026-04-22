@@ -1,70 +1,13 @@
-import { turso, Book, Chapter } from "@/lib/turso";
+import { getChapterBySlug } from "@/lib/db";
 import Navbar from "@/components/Navbar";
 import LatexRenderer from "@/components/LatexRenderer";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-async function getChapterData(bookSlug: string, chapterSlug: string) {
-  try {
-    const bookResult = await turso.execute({
-      sql: "SELECT id, title, slug FROM books WHERE slug = ?",
-      args: [bookSlug],
-    });
-
-    if (bookResult.rows.length === 0) {
-      // Dummy data for validation
-      if (bookSlug === "the-silent-echo" && chapterSlug === "the-whispering-walls") {
-        return {
-          book: { title: "The Silent Echo", slug: "the-silent-echo" },
-          chapter: {
-            title: "The Whispering Walls",
-            content: "# Chapter 1: The Whispering Walls \n\n In the heart of the library, the energy was palpable. The equation of the soul was whispered to be:\n\n $E = \\psi^2 + \\Omega$\n\n Where $\\psi$ represents the spirit and $\\Omega$ the infinite knowledge. \n\n The walls seemed to move, vibrating with the collective thoughts of a thousand scholars. Elena felt a cold draft, yet the air was thick with the scent of old parchment.",
-            chapter_number: 1,
-            slug: "the-whispering-walls"
-          },
-          prevChapter: null,
-          nextChapter: { slug: "forbidden-knowledge" }
-        };
-      }
-      return null;
-    }
-
-    const book = bookResult.rows[0] as unknown as { id: number; title: string; slug: string };
-    
-    const chapterResult = await turso.execute({
-      sql: "SELECT * FROM chapters WHERE book_id = ? AND slug = ?",
-      args: [book.id, chapterSlug],
-    });
-
-    if (chapterResult.rows.length === 0) return null;
-
-    const chapter = chapterResult.rows[0] as unknown as Chapter;
-
-    // Fetch next and previous chapter slugs
-    const navResult = await turso.execute({
-      sql: "SELECT slug, chapter_number FROM chapters WHERE book_id = ? AND chapter_number IN (?, ?) ORDER BY chapter_number",
-      args: [book.id, chapter.chapter_number - 1, chapter.chapter_number + 1],
-    });
-
-    let prevChapter = null;
-    let nextChapter = null;
-
-    navResult.rows.forEach((row: any) => {
-      if (row.chapter_number === chapter.chapter_number - 1) prevChapter = row;
-      if (row.chapter_number === chapter.chapter_number + 1) nextChapter = row;
-    });
-
-    return { book, chapter, prevChapter, nextChapter };
-  } catch (error) {
-    console.error("Failed to fetch chapter data:", error);
-    return null;
-  }
-}
-
 export default async function ChapterPage({ params }: { params: Promise<{ slug: string; chapterSlug: string }> }) {
   const { slug, chapterSlug } = await params;
-  const data = await getChapterData(slug, chapterSlug);
+  const data = await getChapterBySlug(slug, chapterSlug);
 
   if (!data) {
     notFound();

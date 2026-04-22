@@ -2,71 +2,10 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import BookCard from "@/components/BookCard";
 import Link from "next/link";
-import { turso, Book } from "@/lib/turso";
-
-async function getBooks() {
-  try {
-    const result = await turso.execute("SELECT * FROM books ORDER BY created_at DESC LIMIT 6");
-    
-    let books = result.rows as unknown as Book[];
-    
-    // Seed data if empty for validation
-    if (books.length === 0) {
-      books = [
-        {
-          id: 1,
-          slug: "the-silent-echo",
-          title: "The Silent Echo",
-          author: "Elena Vance",
-          description: "A journey through the whispers of history.",
-          cover_image: "/covers/cover1.png",
-          genre: "Mystery",
-          rating: 4.8,
-          total_chapters: 12,
-          status: "completed",
-          published_at: "2024-01-15",
-          created_at: "2024-01-15",
-        } as Book,
-        {
-          id: 2,
-          slug: "beyond-the-horizon",
-          title: "Beyond the Horizon",
-          author: "Marcus Thorne",
-          description: "Finding hope in the edge of the world.",
-          cover_image: "/covers/cover2.png",
-          genre: "Sci-Fi",
-          rating: 4.5,
-          total_chapters: 24,
-          status: "ongoing",
-          published_at: "2024-02-10",
-          created_at: "2024-02-10",
-        } as Book,
-        {
-          id: 3,
-          slug: "urban-solitude",
-          title: "Urban Solitude",
-          author: "Sarah Jenkins",
-          description: "The poetry of city lights and empty streets.",
-          cover_image: "/covers/cover3.png",
-          genre: "Poetry",
-          rating: 4.9,
-          total_chapters: 8,
-          status: "completed",
-          published_at: "2024-03-05",
-          created_at: "2024-03-05",
-        } as Book
-      ];
-    }
-    
-    return books;
-  } catch (error) {
-    console.error("Failed to fetch books:", error);
-    return [];
-  }
-}
+import { getFeaturedBooks, Book } from "@/lib/db";
 
 export default async function Home() {
-  const books = await getBooks();
+  const books = await getFeaturedBooks();
 
   return (
     <main className="min-h-screen bg-background transition-colors duration-500">
