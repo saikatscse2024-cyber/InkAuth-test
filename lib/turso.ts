@@ -1,4 +1,4 @@
-import { createClient } from "@libsql/client";
+import { createClient } from "@libsql/client/web";
 
 // In Cloudflare, environment variables might not be available on process.env in some contexts.
 // We use a getter function to ensure we always try to pull the latest values.
