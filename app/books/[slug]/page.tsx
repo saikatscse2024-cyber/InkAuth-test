@@ -26,7 +26,11 @@ export default async function BookDetailsPage({ params }: { params: Promise<{ sl
           {/* Left Sidebar: Book Info */}
           <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
             <div className="relative aspect-[3/4] w-full max-w-sm mx-auto lg:mx-0 overflow-hidden rounded-3xl shadow-2xl mb-8 bg-accent flex items-center justify-center">
-              <span className="text-6xl font-bold text-foreground/10">{book.title[0]}</span>
+              {book.cover_image ? (
+                <img src={book.cover_image} alt={book.title} className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <span className="text-6xl font-bold text-foreground/10">{book.title[0]}</span>
+              )}
             </div>
             
             <div className="space-y-6 text-center lg:text-left">

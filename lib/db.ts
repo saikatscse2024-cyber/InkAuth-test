@@ -38,43 +38,61 @@ export interface ChapterWithNav {
 }
 
 /**
+ * Normalization helper to convert Turso Row objects to plain JS objects.
+ */
+function rowsToObjects<T>(result: any): T[] {
+  if (!result || !result.columns || !result.rows) return [];
+  const cols = result.columns;
+  return result.rows.map((row: any) => {
+    const obj: Record<string, any> = {};
+    cols.forEach((col: string, i: number) => {
+      obj[col] = row[i];
+    });
+    return obj as T;
+  });
+}
+
+/**
  * Data Access Layer (DAL) for "Ink Auth"
  * Centralizes all Turso database queries.
  */
 
 export async function getFeaturedBooks(limit: number = 6): Promise<Book[]> {
   try {
-    const result = await turso.execute({
-      sql: "SELECT * FROM books ORDER BY created_at DESC LIMIT ?",
-      args: [limit],
-    });
-    return result.rows as unknown as Book[];
+    const result = await turso.execute(
+      "SELECT * FROM books ORDER BY created_at DESC LIMIT ?",
+      [limit]
+    );
+    return rowsToObjects<Book>(result);
   } catch (error) {
+    console.error("Error in getFeaturedBooks:", error);
     return [];
   }
 }
 
 export async function getBookBySlug(slug: string): Promise<BookWithChapters | null> {
   try {
-    const bookResult = await turso.execute({
-      sql: "SELECT * FROM books WHERE slug = ?",
-      args: [slug],
-    });
+    const bookResult = await turso.execute(
+      "SELECT * FROM books WHERE slug = ?",
+      [slug]
+    );
 
-    if (bookResult.rows.length === 0) return null;
+    const books = rowsToObjects<Book>(bookResult);
+    if (books.length === 0) return null;
 
-    const book = bookResult.rows[0] as unknown as Book;
+    const book = books[0];
     
-    const chaptersResult = await turso.execute({
-      sql: "SELECT id, title, chapter_number, slug FROM chapters WHERE book_id = ? ORDER BY chapter_number ASC",
-      args: [book.id],
-    });
+    const chaptersResult = await turso.execute(
+      "SELECT id, title, chapter_number, slug FROM chapters WHERE book_id = ? ORDER BY chapter_number ASC",
+      [book.id]
+    );
 
     return {
       book,
-      chapters: chaptersResult.rows as unknown as Partial<Chapter>[],
+      chapters: rowsToObjects<Partial<Chapter>>(chaptersResult),
     };
   } catch (error) {
+    console.error("Error in getBookBySlug:", error);
     return null;
   }
 }
@@ -82,44 +100,48 @@ export async function getBookBySlug(slug: string): Promise<BookWithChapters | nu
 export async function getChapterBySlug(bookSlug: string, chapterSlug: string): Promise<ChapterWithNav | null> {
   try {
     // 1. Get Book
-    const bookResult = await turso.execute({
-      sql: "SELECT id, title, slug FROM books WHERE slug = ?",
-      args: [bookSlug],
-    });
+    const bookResult = await turso.execute(
+      "SELECT id, title, slug FROM books WHERE slug = ?",
+      [bookSlug]
+    );
 
-    if (bookResult.rows.length === 0) return null;
-    const book = bookResult.rows[0] as unknown as { id: number; title: string; slug: string };
+    const books = rowsToObjects<{ id: number; title: string; slug: string }>(bookResult);
+    if (books.length === 0) return null;
+    const book = books[0];
 
     // 2. Get Chapter
-    const chapterResult = await turso.execute({
-      sql: "SELECT * FROM chapters WHERE book_id = ? AND slug = ?",
-      args: [book.id, chapterSlug],
-    });
+    const chapterResult = await turso.execute(
+      "SELECT * FROM chapters WHERE book_id = ? AND slug = ?",
+      [book.id, chapterSlug]
+    );
 
-    if (chapterResult.rows.length === 0) return null;
-    const chapter = chapterResult.rows[0] as unknown as Chapter;
+    const chapters = rowsToObjects<Chapter>(chapterResult);
+    if (chapters.length === 0) return null;
+    const chapter = chapters[0];
 
     // 3. Get Navigation (Previous and Next slugs)
-    const navResult = await turso.execute({
-      sql: "SELECT slug, chapter_number FROM chapters WHERE book_id = ? AND chapter_number IN (?, ?) ORDER BY chapter_number",
-      args: [book.id, chapter.chapter_number - 1, chapter.chapter_number + 1],
-    });
+    const navResult = await turso.execute(
+      "SELECT slug, chapter_number FROM chapters WHERE book_id = ? AND chapter_number IN (?, ?) ORDER BY chapter_number",
+      [book.id, chapter.chapter_number - 1, chapter.chapter_number + 1]
+    );
 
+    const navItems = rowsToObjects<{ slug: string; chapter_number: number }>(navResult);
     let prevChapter = null;
     let nextChapter = null;
 
-    navResult.rows.forEach((row: any) => {
-      if (row.chapter_number === chapter.chapter_number - 1) prevChapter = row;
-      if (row.chapter_number === chapter.chapter_number + 1) nextChapter = row;
+    navItems.forEach((item) => {
+      if (item.chapter_number === chapter.chapter_number - 1) prevChapter = item;
+      if (item.chapter_number === chapter.chapter_number + 1) nextChapter = item;
     });
 
     return { 
       book, 
       chapter, 
-      prevChapter: prevChapter as { slug: string; chapter_number: number } | null, 
-      nextChapter: nextChapter as { slug: string; chapter_number: number } | null 
+      prevChapter, 
+      nextChapter 
     };
   } catch (error) {
+    console.error("Error in getChapterBySlug:", error);
     return null;
   }
 }

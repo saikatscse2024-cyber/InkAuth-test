@@ -29,10 +29,17 @@ export default async function Home() {
           {books.map((book: Book) => (
             <Link key={book.slug} href={`/books/${book.slug}`} className="group block">
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-accent mb-4 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2">
-                 {/* Image removed for deployment test */}
-                 <div className="absolute inset-0 flex items-center justify-center bg-accent text-foreground/20 font-bold text-2xl uppercase tracking-tighter">
-                   {book.title[0]}
-                 </div>
+                 {book.cover_image ? (
+                   <img 
+                    src={book.cover_image} 
+                    alt={book.title} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                   />
+                 ) : (
+                   <div className="absolute inset-0 flex items-center justify-center bg-accent text-foreground/20 font-bold text-2xl uppercase tracking-tighter">
+                     {book.title[0]}
+                   </div>
+                 )}
               </div>
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
