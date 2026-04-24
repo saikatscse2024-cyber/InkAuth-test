@@ -60,7 +60,7 @@ function rowsToObjects<T>(result: any): T[] {
 export async function getFeaturedBooks(limit: number = 6): Promise<Book[]> {
   try {
     const result = await turso.execute({
-      sql: "SELECT * FROM books ORDER BY created_at DESC LIMIT ?",
+      sql: "SELECT * FROM book_summaries ORDER BY created_at DESC LIMIT ?",
       args: [limit],
     });
     return rowsToObjects<Book>(result);
@@ -81,7 +81,7 @@ export async function getBookBySlug(slug: string): Promise<BookWithChapters | nu
     if (books.length === 0) return null;
 
     const book = books[0];
-    
+
     const chaptersResult = await turso.execute({
       sql: "SELECT id, title, chapter_number, slug FROM chapters WHERE book_id = ? ORDER BY chapter_number ASC",
       args: [book.id],
@@ -134,11 +134,11 @@ export async function getChapterBySlug(bookSlug: string, chapterSlug: string): P
       if (item.chapter_number === chapter.chapter_number + 1) nextChapter = item;
     });
 
-    return { 
-      book, 
-      chapter, 
-      prevChapter, 
-      nextChapter 
+    return {
+      book,
+      chapter,
+      prevChapter,
+      nextChapter
     };
   } catch (error) {
     console.error("Error in getChapterBySlug:", error);
@@ -149,7 +149,7 @@ export async function getChapterBySlug(bookSlug: string, chapterSlug: string): P
 export async function getPaginatedBooks(limit: number = 9, offset: number = 0): Promise<Book[]> {
   try {
     const result = await turso.execute({
-      sql: "SELECT * FROM books ORDER BY created_at DESC LIMIT ? OFFSET ?",
+      sql: "SELECT * FROM book_summaries ORDER BY created_at DESC LIMIT ? OFFSET ?",
       args: [limit, offset],
     });
     return rowsToObjects<Book>(result);
