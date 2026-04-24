@@ -75,8 +75,8 @@ export default async function Home() {
               <h4 className="font-bold mb-6 text-foreground">Support</h4>
               <ul className="space-y-4 text-sm text-foreground/50">
                 <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Help Center</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link></li>
               </ul>
             </div>
           </div>
