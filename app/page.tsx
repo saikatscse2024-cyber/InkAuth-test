@@ -20,9 +20,12 @@ export default async function Home() {
             <h2 className="text-3xl font-bold tracking-tight mb-2 text-foreground">Featured Stories</h2>
             <p className="text-foreground/40 font-medium">Handpicked reads for your weekend</p>
           </div>
-          <button className="text-sm font-bold border-b-2 border-border pb-1 text-foreground/60 hover:text-foreground hover:border-foreground transition-all">
+          <Link 
+            href="/library"
+            className="text-sm font-bold border-b-2 border-border pb-1 text-foreground/60 hover:text-foreground hover:border-foreground transition-all"
+          >
             View All
-          </button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
@@ -66,7 +69,7 @@ export default async function Home() {
             <div>
               <h4 className="font-bold mb-6 text-foreground">Explore</h4>
               <ul className="space-y-4 text-sm text-foreground/50">
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Library</Link></li>
+                <li><Link href="/library" className="hover:text-foreground transition-colors">Library</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Authors</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Membership</Link></li>
               </ul>

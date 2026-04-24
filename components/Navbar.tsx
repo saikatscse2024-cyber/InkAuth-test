@@ -33,7 +33,7 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Home</Link>
-            <Link href="/coming-soon" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Library</Link>
+            <Link href="/library" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Library</Link>
             <Link href="/coming-soon" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Categories</Link>
             <button className="p-2 text-foreground/60 hover:bg-foreground/5 rounded-full transition-colors">
               <Search className="w-4 h-4" />
@@ -57,7 +57,7 @@ export default function Navbar() {
       }`}>
         <div className="px-4 pt-2 pb-6 space-y-1">
           <Link href="/" className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Home</Link>
-          <Link href="/coming-soon" className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Library</Link>
+          <Link href="/library" className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Library</Link>
           <Link href="/coming-soon" className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Categories</Link>
           
           <div className="flex items-center justify-between px-3 py-4 border-t border-border mt-4">

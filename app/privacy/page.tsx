@@ -10,9 +10,9 @@ export default function PrivacyPage() {
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-indigo-500/10 blur-[120px] -z-10 rounded-full" />
 
       <Navbar />
-      
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 relative">
-        <Link 
+        <Link
           href="/"
           className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-foreground/30 hover:text-foreground transition-all mb-12"
         >
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
               <h2 className="text-3xl font-bold tracking-tight text-foreground m-0">1. Information Collection</h2>
             </div>
             <p className="text-foreground/60 leading-relaxed text-lg">
-              We collect information you provide directly to us, such as when you create or modify your account, request support, or otherwise communicate with us. This information may include: <span className="text-foreground font-semibold italic">name, email address, password</span>, and any other information you choose to provide.
+              We are not collecting any information for now, but we may need in future for user login etc. If we need any information we will let you know. Till then you can use the app without any worry.
             </p>
           </section>
 
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
               <h2 className="text-3xl font-bold tracking-tight text-foreground m-0">2. How We Use Information</h2>
             </div>
             <p className="text-foreground/60 leading-relaxed text-lg mb-8">
-              We use the information we collect to provide, maintain, and improve our services, specifically to:
+              We are not collecting any information for now, but we may need in future for user login etc. If we need any information we will let you know. Till then you can use the app without any worry.  NOTE : we never sell or share your data with any third party and we are not responsable for any data loss or data breach. If any unofficial person collect your data by our name, please verify it. we will not responsible for any loss or damage.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
