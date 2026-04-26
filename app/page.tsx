@@ -28,30 +28,17 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-8 sm:gap-y-16">
           {books.map((book: Book) => (
-            <Link key={book.slug} href={`/books/${book.slug}`} className="group block">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-accent mb-4 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2">
-                 {book.cover_image ? (
-                   <img 
-                    src={book.cover_image} 
-                    alt={book.title} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                   />
-                 ) : (
-                   <div className="absolute inset-0 flex items-center justify-center bg-accent text-foreground/20 font-bold text-2xl uppercase tracking-tighter">
-                     {book.title[0]}
-                   </div>
-                 )}
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-foreground/40">{book.genre}</span>
-                </div>
-                <h3 className="font-bold text-lg leading-tight text-foreground group-hover:text-foreground/60 transition-colors">{book.title}</h3>
-                <p className="text-sm text-foreground/60">{book.author}</p>
-              </div>
-            </Link>
+            <BookCard 
+              key={book.slug} 
+              slug={book.slug}
+              title={book.title}
+              author={book.author}
+              genre={book.genre}
+              rating={book.rating}
+              cover_image={book.cover_image}
+            />
           ))}
         </div>
       </section>

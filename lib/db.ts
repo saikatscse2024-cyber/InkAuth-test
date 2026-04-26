@@ -59,10 +59,10 @@ function rowsToObjects<T>(result: any): T[] {
 
 export async function getFeaturedBooks(limit: number = 6): Promise<Book[]> {
   try {
-    const result = await turso.execute({
-      sql: "SELECT * FROM book_summaries ORDER BY created_at DESC LIMIT ?",
-      args: [limit],
-    });
+    const result = await turso.execute(
+      "SELECT * FROM book_summaries ORDER BY created_at DESC LIMIT ?",
+      [limit]
+    );
     return rowsToObjects<Book>(result);
   } catch (error) {
     console.error("Error in getFeaturedBooks:", error);
@@ -146,12 +146,21 @@ export async function getChapterBySlug(bookSlug: string, chapterSlug: string): P
   }
 }
 
-export async function getPaginatedBooks(limit: number = 9, offset: number = 0): Promise<Book[]> {
+export async function getPaginatedBooks(limit: number = 6, offset: number = 0, query: string = ""): Promise<Book[]> {
   try {
-    const result = await turso.execute({
-      sql: "SELECT * FROM book_summaries ORDER BY created_at DESC LIMIT ? OFFSET ?",
-      args: [limit, offset],
-    });
+    let sql = "SELECT * FROM book_summaries";
+    let args: any[] = [];
+
+    if (query) {
+      sql += " WHERE title LIKE ? OR author LIKE ? OR genre LIKE ?";
+      const searchPattern = `%${query}%`;
+      args.push(searchPattern, searchPattern, searchPattern);
+    }
+
+    sql += " ORDER BY created_at DESC LIMIT ? OFFSET ?";
+    args.push(limit, offset);
+
+    const result = await turso.execute({ sql, args });
     return rowsToObjects<Book>(result);
   } catch (error) {
     console.error("Error in getPaginatedBooks:", error);
