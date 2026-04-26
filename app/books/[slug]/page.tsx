@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { Star, Clock, Book as BookIcon, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
+import ShareButton from "@/components/ShareButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -64,10 +65,14 @@ export default async function BookDetailsPage({ params }: { params: Promise<{ sl
                 </p>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex items-center justify-between">
                 <span className="inline-block px-4 py-1.5 bg-accent rounded-full text-xs font-bold uppercase tracking-widest text-foreground/70">
                   {book.genre}
                 </span>
+                <ShareButton 
+                  bookTitle={book.title} 
+                  description={book.description} 
+                />
               </div>
             </div>
           </div>
