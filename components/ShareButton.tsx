@@ -158,7 +158,7 @@ export default function ShareButton({ title, description, url, bookTitle, chapte
               className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-accent rounded-xl transition-colors text-sm font-medium text-left text-foreground"
             >
               {copied ? <Check className="w-5 h-5 text-green-500" /> : <LinkIcon className="w-5 h-5" />}
-              {copied ? "Link Copied!" : "Copy Link"}
+              {copied ? "Link Copied!" : "Copy Message"}
             </button>
           </div>
         </div>
