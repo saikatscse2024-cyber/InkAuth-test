@@ -108,10 +108,10 @@ export default function PrivacyPage() {
             <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6">
               <Lock className="w-6 h-6 text-foreground/20" />
             </div>
-            <p className="text-foreground/40 text-sm max-w-sm leading-relaxed">
+            {/* <p className="text-foreground/40 text-sm max-w-sm leading-relaxed">
               Have concerns about your digital footprint? <br />
               <Link href="mailto:privacy@inkauth.com" className="text-foreground font-bold hover:underline transition-all">privacy@inkauth.com</Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

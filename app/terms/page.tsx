@@ -10,9 +10,9 @@ export default function TermsPage() {
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-500/10 blur-[120px] -z-10 rounded-full" />
 
       <Navbar />
-      
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 relative">
-        <Link 
+        <Link
           href="/"
           className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-foreground/30 hover:text-foreground transition-all mb-12"
         >
@@ -43,7 +43,7 @@ export default function TermsPage() {
             </div>
             <div className="space-y-4 text-foreground/60 leading-relaxed text-lg">
               <p>
-                By accessing or using <span className="text-foreground font-bold italic">Ink Auth</span>, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access the service. 
+                By accessing or using <span className="text-foreground font-bold italic">Ink Auth</span>, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access the service.
               </p>
               <p>
                 These terms apply to all visitors, users, and others who access or use the service.
@@ -104,10 +104,10 @@ export default function TermsPage() {
             <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6">
               <Scale className="w-6 h-6 text-foreground/20" />
             </div>
-            <p className="text-foreground/40 text-sm max-w-sm leading-relaxed">
+            {/* <p className="text-foreground/40 text-sm max-w-sm leading-relaxed">
               Questions about our legal framework? <br />
               <Link href="mailto:support@inkauth.com" className="text-foreground font-bold hover:underline transition-all">support@inkauth.com</Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
