@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, PenLine, Sparkles } from 'lucide-react';
 
-const CONTRIBUTE_FORM_URL = '#'; // Replace with Google Form URL later
+const CONTRIBUTE_FORM_URL = 'https://forms.gle/diSgxTrEejfwLvaP8'; // Replace with Google Form URL later
 
 export default function ContributeBanner() {
   const [visible, setVisible] = useState(false);
@@ -27,11 +27,10 @@ export default function ContributeBanner() {
 
   return (
     <div
-      className={`absolute top-0 left-0 right-0 z-40 transition-all duration-700 ease-out ${
-        visible
+      className={`absolute top-0 left-0 right-0 z-40 transition-all duration-700 ease-out ${visible
           ? 'translate-y-[72px] sm:translate-y-[80px] opacity-100'
           : '-translate-y-full opacity-0'
-      }`}
+        }`}
     >
       <div className="contribute-banner mx-auto max-w-5xl px-2 sm:px-6 mt-2">
         <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_20px_50px_rgba(79,70,229,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/30 backdrop-blur-md">
