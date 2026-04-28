@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import BookCard from "@/components/BookCard";
 import Link from "next/link";
 import { getFeaturedBooks, Book } from "@/lib/db";
+import ContributeBanner from "@/components/ContributeBanner";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,15 +13,16 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-background transition-colors duration-500">
       <Navbar />
+      <ContributeBanner />
       <Hero />
-      
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2 className="text-3xl font-bold tracking-tight mb-2 text-foreground">Featured Stories</h2>
             <p className="text-foreground/40 font-medium">Handpicked reads for your weekend</p>
           </div>
-          <Link 
+          <Link
             href="/library"
             className="text-sm font-bold border-b-2 border-border pb-1 text-foreground/60 hover:text-foreground hover:border-foreground transition-all"
           >
@@ -30,8 +32,8 @@ export default async function Home() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-8 sm:gap-y-16">
           {books.map((book: Book) => (
-            <BookCard 
-              key={book.slug} 
+            <BookCard
+              key={book.slug}
               slug={book.slug}
               title={book.title}
               author={book.author}
