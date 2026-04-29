@@ -16,7 +16,7 @@ export default async function Home() {
       <ContributeBanner />
       <Hero />
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+      <section id="featured-stories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2 className="text-3xl font-bold tracking-tight mb-2 text-foreground">Featured Stories</h2>
