@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getFeaturedBooks, Book } from "@/lib/db";
 import ContributeBanner from "@/components/ContributeBanner";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 2592000; // 30 days in seconds
 
 export default async function Home() {
   const books = await getFeaturedBooks();
@@ -24,6 +24,7 @@ export default async function Home() {
           </div>
           <Link
             href="/library"
+            prefetch={false}
             className="text-sm font-bold border-b-2 border-border pb-1 text-foreground/60 hover:text-foreground hover:border-foreground transition-all"
           >
             View All
@@ -58,25 +59,25 @@ export default async function Home() {
             <div>
               <h4 className="font-bold mb-6 text-foreground">Explore</h4>
               <ul className="space-y-4 text-sm text-foreground/50">
-                <li><Link href="/library" className="hover:text-foreground transition-colors">Library</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Authors</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Membership</Link></li>
+                <li><Link href="/library" prefetch={false} className="hover:text-foreground transition-colors">Library</Link></li>
+                <li><Link href="/coming-soon" prefetch={false} className="hover:text-foreground transition-colors">Authors</Link></li>
+                <li><Link href="/coming-soon" prefetch={false} className="hover:text-foreground transition-colors">Membership</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold mb-6 text-foreground">Support</h4>
               <ul className="space-y-4 text-sm text-foreground/50">
-                <li><Link href="/coming-soon" className="hover:text-foreground transition-colors">Help Center</Link></li>
-                <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
-                <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link></li>
+                <li><Link href="/coming-soon" prefetch={false} className="hover:text-foreground transition-colors">Help Center</Link></li>
+                <li><Link href="/terms" prefetch={false} className="hover:text-foreground transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" prefetch={false} className="hover:text-foreground transition-colors">Privacy</Link></li>
               </ul>
             </div>
           </div>
           <div className="pt-8 text-sm text-foreground/30 flex justify-between items-center">
             <p>© 2026 Ink Auth. All rights reserved.</p>
             <div className="flex space-x-6">
-              <Link href="#" className="hover:text-foreground transition-colors">Twitter</Link>
-              <Link href="#" className="hover:text-foreground transition-colors">Instagram</Link>
+              <Link href="#" prefetch={false} className="hover:text-foreground transition-colors">Twitter</Link>
+              <Link href="#" prefetch={false} className="hover:text-foreground transition-colors">Instagram</Link>
             </div>
           </div>
         </div>

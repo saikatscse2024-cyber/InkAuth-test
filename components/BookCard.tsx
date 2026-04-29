@@ -13,7 +13,7 @@ interface BookCardProps {
 
 export default function BookCard({ slug, title, author, genre, rating, cover_image }: BookCardProps) {
   return (
-    <Link href={`/books/${slug}`} className="group block w-full">
+    <Link href={`/books/${slug}`} prefetch={false} className="group block w-full">
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl sm:rounded-2xl bg-accent mb-3 sm:mb-4 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2">
         {cover_image ? (
           <Image 

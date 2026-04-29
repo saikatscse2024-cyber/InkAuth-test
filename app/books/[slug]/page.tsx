@@ -5,7 +5,7 @@ import { Star, Clock, Book as BookIcon, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import ShareButton from "@/components/ShareButton";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 2592000; // 30 days in seconds
 
 export default async function BookDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -89,6 +89,7 @@ export default async function BookDetailsPage({ params }: { params: Promise<{ sl
                 <Link 
                   key={chapter.id}
                   href={`/books/${book.slug}/${chapter.slug}`}
+                  prefetch={false}
                   className="group flex items-center justify-between p-6 bg-card border border-border rounded-2xl hover:bg-accent transition-all duration-300"
                 >
                   <div className="flex items-center gap-6">

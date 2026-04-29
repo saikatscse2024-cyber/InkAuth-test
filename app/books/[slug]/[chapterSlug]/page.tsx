@@ -6,7 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ShareButton from "@/components/ShareButton";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 2592000; // 30 days in seconds
 
 export default async function ChapterPage({ params }: { params: Promise<{ slug: string; chapterSlug: string }> }) {
   const { slug, chapterSlug } = await params;
@@ -27,6 +27,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
         <div className="mb-20 text-center">
           <Link
             href={`/books/${book.slug}`}
+            prefetch={false}
             className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-foreground/30 hover:text-foreground transition-colors mb-6"
           >
             <ChevronLeft className="w-3 h-3" />
@@ -61,6 +62,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
           {prevChapter ? (
             <Link
               href={`/books/${book.slug}/${prevChapter.slug}`}
+              prefetch={false}
               className="flex items-center gap-4 group text-left"
             >
               <div className="w-12 h-12 flex items-center justify-center rounded-full border border-border group-hover:bg-foreground group-hover:text-background transition-all duration-300">
@@ -75,6 +77,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
 
           <Link
             href={`/books/${book.slug}`}
+            prefetch={false}
             className="p-4 bg-accent hover:bg-foreground hover:text-background rounded-full transition-all duration-300"
             title="Table of Contents"
           >
@@ -84,6 +87,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ slug: 
           {nextChapter ? (
             <Link
               href={`/books/${book.slug}/${nextChapter.slug}`}
+              prefetch={false}
               className="flex items-center gap-4 group text-right"
             >
               <div className="hidden sm:block">

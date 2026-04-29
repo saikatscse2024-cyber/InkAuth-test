@@ -23,7 +23,7 @@ export default function Navbar() {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-2 group relative z-10">
+          <Link href="/" prefetch={false} className="flex items-center space-x-2 group relative z-10">
             <div className="bg-foreground p-1.5 rounded-lg transition-transform group-hover:scale-110">
               <BookOpen className="w-5 h-5 text-background" />
             </div>
@@ -32,9 +32,9 @@ export default function Navbar() {
  
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Home</Link>
-            <Link href="/library" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Library</Link>
-            <Link href="/coming-soon" className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Categories</Link>
+            <Link href="/" prefetch={false} className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Home</Link>
+            <Link href="/library" prefetch={false} className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Library</Link>
+            <Link href="/coming-soon" prefetch={false} className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors">Categories</Link>
             <ThemeToggle />
           </div>
  
@@ -57,9 +57,9 @@ export default function Navbar() {
         isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"
       }`}>
         <div className="px-4 pt-2 pb-6 space-y-1">
-          <Link href="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Home</Link>
-          <Link href="/library" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Library</Link>
-          <Link href="/coming-soon" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Categories</Link>
+          <Link href="/" prefetch={false} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Home</Link>
+          <Link href="/library" prefetch={false} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Library</Link>
+          <Link href="/coming-soon" prefetch={false} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-foreground hover:bg-foreground/5 rounded-md">Categories</Link>
           
           <div className="pt-4 px-3">
             <button className="w-full bg-foreground text-background py-3 rounded-full font-medium shadow-lg">Get Started</button>
